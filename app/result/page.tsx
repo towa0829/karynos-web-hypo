@@ -101,11 +101,25 @@ export default function ResultPage() {
             <h2 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
               <span>🧭</span> あなたの性格・適性
             </h2>
-            <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap">
-              {result.personality_text}
-            </p>
+            <div
+              className="text-sm text-gray-600 leading-relaxed analysis-html"
+              dangerouslySetInnerHTML={{ __html: result.personality_text }}
+            />
+
           </section>
         )}
+
+        {/* 適合度トップ5（おすすめ） */}
+        <section>
+          <h2 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2 px-1">
+            <span>🏆</span> あなたへのおすすめ TOP5
+          </h2>
+          <div className="flex flex-col gap-3">
+            {result.top_matches.map((job, i) => (
+              <JobCard key={job.job_id} job={job} rank={i + 1} />
+            ))}
+          </div>
+        </section>
 
         {/* いいねした職業 */}
         <section>
@@ -126,18 +140,6 @@ export default function ResultPage() {
               いいねした職業はありませんでした。
             </p>
           )}
-        </section>
-
-        {/* 適合度トップ5 */}
-        <section>
-          <h2 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2 px-1">
-            <span>🏆</span> あなたへのおすすめ TOP5
-          </h2>
-          <div className="flex flex-col gap-3">
-            {result.top_matches.map((job, i) => (
-              <JobCard key={job.job_id} job={job} rank={i + 1} />
-            ))}
-          </div>
         </section>
 
         {/* やり直す */}

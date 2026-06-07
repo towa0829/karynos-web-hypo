@@ -24,3 +24,23 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* 分析文（HTMLフラグメント）の表示スタイル */
+.analysis-html p {
+  margin-bottom: 0.5rem;
+}
+.analysis-html p:last-child {
+  margin-bottom: 0;
+}
+.analysis-html ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+.analysis-html li {
+  margin-bottom: 0.25rem;
+}
+.analysis-html strong {
+  font-weight: 700;
+  color: #4f46e5;
+}
