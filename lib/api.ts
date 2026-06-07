@@ -40,6 +40,22 @@ export interface Recommendation {
   similarity_score: number;
 }
 
+export interface JobSummary {
+  job_id: number;
+  name: string;
+  salary: number;
+  age: number;
+  imgs: string[];
+  description: string;
+  similarity_score: number;
+}
+
+export interface ResultResponse {
+  personality_text: string;
+  liked_jobs: JobSummary[];
+  top_matches: JobSummary[];
+}
+
 // ── API functions ──────────────────────────────────────────────────────────────
 
 export function createDreamer(name_family: string, name_given: string) {
@@ -67,6 +83,10 @@ export function getRecommendation(dreamer_id: string) {
   return request<{ recommendation: Recommendation }>(
     `/api/v1/recommend/${dreamer_id}`
   );
+}
+
+export function getResult(dreamer_id: string) {
+  return request<ResultResponse>(`/api/v1/recommend/${dreamer_id}/result`);
 }
 
 export function sendGood(dreamer_id: string, history_id: string) {

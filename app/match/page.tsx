@@ -34,6 +34,13 @@ export default function MatchPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 全カード見終わったら診断結果ページへ
+  useEffect(() => {
+    if (done) {
+      router.push("/result");
+    }
+  }, [done, router]);
+
   async function fetchNext() {
     const id = dreamerId.current;
     if (!id) return;
@@ -90,18 +97,9 @@ export default function MatchPage() {
 
   if (done) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50 gap-6 p-8">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 to-purple-50 gap-4 p-8">
         <div className="text-5xl">🎉</div>
-        <h2 className="text-xl font-bold text-gray-800">診断完了！</h2>
-        <p className="text-gray-500 text-sm text-center">
-          すべての職業を確認しました。<br />もう一度やり直す場合は下のボタンから。
-        </p>
-        <button
-          onClick={() => router.push("/create-account")}
-          className="bg-indigo-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-indigo-600 transition-colors"
-        >
-          最初からやり直す
-        </button>
+        <p className="text-gray-500 text-sm">診断結果を作成中...</p>
       </div>
     );
   }
@@ -145,13 +143,13 @@ export default function MatchPage() {
               className="absolute inset-0 bg-white rounded-3xl shadow-xl overflow-hidden cursor-grab active:cursor-grabbing"
             >
               {/* Image area */}
-              <div className="h-56 bg-gradient-to-br from-indigo-200 to-purple-200 flex items-center justify-center">
+              <div className="relative h-52 w-full bg-gradient-to-br from-indigo-200 to-purple-200 overflow-hidden flex items-center justify-center">
                 {card.rec.imgs && card.rec.imgs.length > 0 ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={card.rec.imgs[0]}
                     alt={card.rec.name}
-                    className="h-full w-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 ) : (
                   <span className="text-6xl">💼</span>
